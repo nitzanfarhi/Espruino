@@ -20,6 +20,7 @@ import json;
 import sys;
 import os;
 import importlib;
+import traceback
 # Local
 import pinutils;
 
@@ -258,10 +259,12 @@ def get_jsondata(is_for_document, parseArgs = True, boardObject = False):
           if not drop:
             jsondatas.append(jsondata)
         except ValueError as e:
+          _, exc_obj, _ = sys.exc_info()
           sys.stderr.write( "JSON PARSE FAILED for " +  jsonstring + " - "+ str(e) + "\n")
           print(''.join(traceback.format_exception(None, exc_obj, exc_obj.__traceback__)))          
           exit(1)
         except Exception as e:
+          _, exc_obj, _ = sys.exc_info()
           sys.stderr.write( "JSON PARSE FAILED for " + jsonstring + " - "+str(e) + "\n" )
           print(''.join(traceback.format_exception(None, exc_obj, exc_obj.__traceback__)))
           exit(1)
